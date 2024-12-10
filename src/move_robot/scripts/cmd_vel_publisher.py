@@ -4,6 +4,8 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 
+import random
+
 class CmdVelPublisher(Node):
     def __init__(self):
         super().__init__('cmd_vel_publisher')
@@ -13,7 +15,7 @@ class CmdVelPublisher(Node):
 
     def timer_callback(self):
         msg = Twist()
-        msg.linear.x = 0.5  # Set linear velocity in x direction
+        msg.linear.x = 0.5 + random.randint(1, 4)  # Set linear velocity in x direction
         msg.angular.z = 0.0  # Set angular velocity in z direction
         self.publisher_.publish(msg)
         self.get_logger().info(f'Published: linear.x={msg.linear.x}, angular.z={msg.angular.z}')
